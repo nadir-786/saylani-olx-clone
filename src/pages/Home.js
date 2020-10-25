@@ -12,15 +12,8 @@ class Home extends Component {
     }
     render() {
         return (
-            <div>
-                <Header />
-                {
-                    this.props.currentUser.isLogged ? (
-                        <button onClick={()=> firebase.auth().signOut()}>SignOut</button>                        
-                    ):(
-                        <button onClick={()=> this.signInUser()}>SignIn</button>
-                    )
-                }
+            <div className="home-page">
+                
             </div>
         )
     }
