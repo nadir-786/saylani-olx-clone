@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<!-- The root element -->
+
+<head>
+    <!-- Title, scripts & styles go here -->
+    <title>Digital Clock</title>
+
+    <style>
+        /* A CSS stylesheet for the clock */
+        #clock {
+            /* Style apply to element with id="clock" */
+            font: bold 24pt sans;
+            /* Use a big bold font */
+            background: #ddf;
+            /* On a light bluish-gray background */
+            padding: 10px;
+            /* Surround it with some space */
+            border: solid black 2px;
+            /* And a solid black border */
+            border-radius: 10px;
+            /* Round the corners (where supported) */
+        }
+
+        #myId {
+            font: bold 24pt sans;
+            /* Use a big bold font */
+            background: #ddf;
+            /* On a light bluish-gray background */
+            margin: 10;
+            /* Surround it with some space */
+            border: solid black 2px;
+            /* And a solid black border */
+            border-radius: 10px;
+            /* Round the corners (where supported) */
+        }
+
+        #allStudents {
+        }
+#allContainer{
+    margin-top: 100px;
+
+}
+        #studentId {
+            font: bold 24pt sans;
+            /* Use a big bold font */
+            background: #ddf;
+            /* On a light bluish-gray background */
+            margin: 10px;
+            /* Surround it with some space */
+            border: solid black 2px;
+            /* And a solid black border */
+            display: block;
+            margin-top: 10px;
+            border-radius: 10px;
+}
+    </style>
+</head>
+
+<body>
+    <!-- The body is the displayed parts of the doc. -->
+    <h1>Digital Clock</h1>
+    <!-- Display a title -->
+    <span id="clock"></span>
+    <span id="myId">Name: Friend Course: JavaScript </span>
+   <div id="allContainer">
+<h1 style="text-align: center;">All Students</h1>
+    <div id="allStudents">
+
+    </div>
+   </div>
+    <div>
+    <h1 style="text-align: center;">Filtered Data by Web Dev</h1>    
+        <div id="filterStudents">
+            
+        </div>
+    </div>
+    <script>
+        // A script of js code
+        // Define a function to display the current time
+        function displayTime() {
+            var elt = document.getElementById("clock"); // Find element with id="clock"
+            var now = new Date(); // Get current time
+            elt.innerHTML = now.toLocaleTimeString(); // Make elt display it
+            setTimeout(displayTime, 1000); // Run again in 1 second
+        }
+        window.onload = displayTime; // Start displaying the time when document loads.
+
+        // TASK 2
+
+        var myArray = [
+            {
+                Name: "Ali",
+                Code: "101",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            },
+            {
+                Name: "Tahir",
+                Code: "102",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Graphics"
+            },
+            {
+                Name: "Jameel",
+                Code: "103",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            },
+            {
+                Name: "Hussain",
+                Code: "104",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "AI"
+            },
+            {
+                Name: "Junaid",
+                Code: "105",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            },
+            {
+                Name: "Kamran",
+                Code: "106",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Graphics"
+            },
+            {
+                Name: "Saleh",
+                Code: "107",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Graphics"
+            },
+            {
+                Name: "Jawad",
+                Code: "108",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "AI"
+            },
+            {
+                Name: "Ghafoor",
+                Code: "109",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "AI"
+            },
+            {
+                Name: "Rizwan",
+                Code: "110",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "AI"
+            },
+            {
+                Name: "Imran",
+                Code: "112",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            },
+            {
+                Name: "Irfan",
+                Code: "113",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            },
+            {
+                Name: "rafeh",
+                Code: "114",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            },
+            {
+                Name: "Abdullah",
+                Code: "115",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Graphics"
+            },
+            {
+                Name: "Hashim",
+                Code: "116",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "IOT"
+            },
+            {
+                Name: "Ibrahim",
+                Code: "117",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "IOT"
+            },
+            {
+                Name: "Aslam",
+                Code: "118",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "AI"
+            },
+            {
+                Name: "Fahad",
+                Code: "119",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            },
+            {
+                Name: "Faheem",
+                Code: "120",
+                StartDate: "10/9/2020",
+                EndDate: "22/12/2020",
+                CourseName: "Web Dev"
+            }
+        ];
+
+        var filterData = myArray.filter((student) => student.CourseName === "Web Dev");
+
+        myArray.forEach((doc) => {
+            window.document.getElementById("allStudents").innerHTML += `<span id="studentId">Name: ${doc.Name} <br /> Course: ${doc.CourseName} <br /> Start Date: ${doc.StartDate} <br /> End Date: ${doc.EndDate}  </span> `
+
+        })
+        filterData.forEach((doc) => {
+            window.document.getElementById("filterStudents").innerHTML += `<span id="studentId">Name: ${doc.Name} <br /> Course: ${doc.CourseName} <br /> Start Date: ${doc.StartDate} <br /> End Date: ${doc.EndDate}  </span>`
+
+        })
+
+        // TASK 3
+
+        var JsonRef = JSON.stringify(myArray);
+
+        // TASK 4
+
+
+        const af = (e) => JSON.stringify(e).toUpperCase();
+        var output = myArray.map(af);
+        // Output Validation
+        console.log(output);
+    </script>
+</body>
+
+</html>
