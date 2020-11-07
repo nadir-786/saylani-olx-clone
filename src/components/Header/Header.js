@@ -44,14 +44,18 @@ class Header extends Component {
             <button onClick={this.openModal} className="login-button">
               <span className="login-span">Login</span>
             </button>
+            
+              <Link to="/post">
             <button className="sell-header">
               <span className="sell-icon">
               <i className="fa fa-plus"></i>
               </span>
               <span className="sell-span">SELL</span>
+              
             </button>
+              </Link>
           </div>
-          {/* <AuthModal ref={(e) => this.authModal = e} /> */}
+          <AuthModal ref={(e) => this.authModal = e} />
         </div>
         
       </>

@@ -11,19 +11,12 @@ export default class ProductCard extends Component {
     }
     render() {
         return (
-            <div className="product-container ">
+            <div className="product-container">
                 <Link className="product-link" to='/'>
                     <figure className="figure-container">
                         <img src={productImg} className="product-img" alt="" />
                     </figure>
-                    {true && <div className="feature-box">
-                        <label htmlFor="feature-product" className="feature-label">
-                            <span className="feature-h">Featured</span>
-                        </label>
-                    </div>}
-                    
-                    <div className={`product-content ${true ? "product-feature-oultine" : null}`}>
-
+                    <div className="product-content">
                         <span className="product-price">Rs 2000</span>
                         <span className="product-title">IPHONE 7</span>
                         <div className="product-footer">

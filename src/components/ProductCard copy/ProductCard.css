@@ -1,13 +1,12 @@
 .product-container {
-    width: 300px;
+    width: 24%;
     /* margin-top: 100px; */
     position: relative;
     height: 266px;
     border-radius: 2px;
     display: inline-block;
     vertical-align: top;
-    border: 1px solid rgba(0,47,52,.2);
-    -webkit-tap-highlight-color: transparent;
+    border: 1px solid rgba(0, 47, 52, .2);
     margin: 5px;
 }
 
@@ -33,11 +32,8 @@
     flex: 1;
     position: relative;
     padding: 8px 16px;
-    
 }
-.product-feature-oultine{
-    border-left: 5px solid #ffce32;
-}
+
 .product-price {
     text-align: left;
     display: block;
@@ -134,23 +130,4 @@
     width: 40px;
     height: 40px;
     padding: 0;
-}
-.feature-box{
-    display: initial;
-}
-.feature-label{
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    text-transform: uppercase;
-    padding: 0; 
-}
-.feature-h{
-    background-color: #ffce32;
-    color: #002f34 !important;
-    font-size: 10px;
-    padding: 4px 8px;
-    font-weight: 700;
-    display: block;
-    text-transform: uppercase;
 }
