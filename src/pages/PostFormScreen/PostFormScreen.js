@@ -24,9 +24,10 @@ class PostFormScreen extends Component {
         this.setCategory()
     }
     setCategory() {
+        const { name, userImg, email } = this.props.currentUser.userData
         let data = window.location.pathname.split("/")[2]
         let customCategory = data.split("-").join(" ");
-        this.setState({ category: customCategory })
+        this.setState({ category: customCategory, creatorName: name, creatorPhone: null, creatorImg: userImg })
     }
     componentWillReceiveProps(nextProps) {
         const { name, userImg, email } = nextProps.currentUser.userData
@@ -144,13 +145,13 @@ class PostFormScreen extends Component {
                                                 <h2 className="post-basic-h">REVIEW YOUR DETAILS</h2>
                                                 <div className="detail-user-cont">
                                                     <div className="detail-user-img">
-                                                        <div style={{backgroundImage: `url(${this.state.creatorImg})`,height:"100px",width:"100px",borderRadius:"50%"}}></div>
+                                                        <div style={{ backgroundImage: `url(${this.state.creatorImg})`, height: "100px", width: "100px", borderRadius: "50%" }}></div>
                                                     </div>
                                                     <div className="detail-user-info">
                                                         <div className="post-input-cont">
                                                             <label htmlFor="title" className="post-label-title">Name</label>
                                                             <div className="post-input-box">
-                                                                <input type="text" value={this.state.creatorName} onChange={(e)=> this.setState({creatorName:e.target.value})} className="post-input-title" />
+                                                                <input type="text" value={this.state.creatorName} onChange={(e) => this.setState({ creatorName: e.target.value })} className="post-input-title" />
                                                             </div>
                                                         </div>
                                                     </div>

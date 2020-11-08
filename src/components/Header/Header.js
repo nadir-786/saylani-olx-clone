@@ -5,16 +5,29 @@ import logo from '../../assets/logo.png'
 import { Dropdown } from 'semantic-ui-react'
 import { Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import firebase from '../../firebase'
+import { connect } from 'react-redux';
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       search: "",
       find: "",
+      currentUser: {},
+      isLogged: false,
     }
   }
   openModal = () => {
     this.authModal.toggle();
+  }
+  componentDidMount() {
+    let currentUser = this.props.currentUser.userData;
+    this.setState({ currentUser, isLogged: this.props.currentUser.isLogged })
+  
+  }
+  componentWillReceiveProps(nextProps) {
+    let currentUser = nextProps.currentUser.userData;
+    this.setState({ currentUser, isLogged: nextProps.currentUser.isLogged })
   }
   render() {
     return (
@@ -42,7 +55,54 @@ class Header extends Component {
           </div>
 
           <div className="login-header">
-            <button onClick={this.openModal} className="login-button">
+            {
+              this.state.isLogged ? (
+                <>
+                  <div class="dropdown" style={{marginLeft:"20px",marginRight:"20px"}}>
+                    <details>
+                      <summary>
+                        <img src={this.state.currentUser?.userImg} style={{ height: "50px", width: '50px', borderRadius: "50%" }} alt="" />
+                      </summary>
+
+                      <div class="dropdown-content">
+                        <ul>
+                          {/* <li><a href="#">Profile</a></li> */}
+                          {/* <li><a href="#">Settings</a></li> */}
+                          <li onClick={() => firebase.auth().signOut()}><a href="#">Logout</a></li>
+                        </ul>
+                      </div>
+                    </details>
+                  </div>
+                  <Link to="/post" className="sell-link">
+                    <button className="sell-header">
+                      <span className="sell-icon">
+                        <i className="fa fa-plus"></i>
+                      </span>
+                      <span className="sell-span">SELL</span>
+
+                    </button>
+                  </Link>
+                </>
+              )
+                : (
+                  <>
+                    <button onClick={this.openModal} className="login-button">
+                      <span className="login-span">Login</span>
+                    </button>
+
+                    <Link to="/post" className="sell-link">
+                      <button className="sell-header">
+                        <span className="sell-icon">
+                          <i className="fa fa-plus"></i>
+                        </span>
+                        <span className="sell-span">SELL</span>
+
+                      </button>
+                    </Link>
+                  </>
+                )
+            }
+            {/* <button onClick={this.openModal} className="login-button">
               <span className="login-span">Login</span>
             </button>
 
@@ -54,7 +114,7 @@ class Header extends Component {
                 <span className="sell-span">SELL</span>
 
               </button>
-            </Link>
+            </Link> */}
           </div>
           <AuthModal ref={(e) => this.authModal = e} />
         </div>
@@ -63,4 +123,10 @@ class Header extends Component {
     )
   }
 }
-export default Header
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.UserReducer
+  }
+}
+export default connect(mapStateToProps)(Header)

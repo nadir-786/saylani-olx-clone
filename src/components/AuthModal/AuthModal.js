@@ -63,6 +63,7 @@ class AuthModal extends Component {
             });
     }
     googleLogin = () => {
+        let changeModal = this.toggle
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
 
@@ -71,6 +72,8 @@ class AuthModal extends Component {
                     email:result.user.email,
                     name:result.user.displayName,
                     userImg: result.user.photoURL
+                }).then(function(){
+                changeModal()
                 }).catch(function (error){
                     console.log(error.code);
                     console.log(error.message);
