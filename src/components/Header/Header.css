@@ -208,7 +208,14 @@
   letter-spacing: .5px;
   color: #002f34;
 }
-
+.sell-link{
+  color: #002f34;
+  text-decoration: none;
+}
+.sell-link:hover{
+  color: #002f34;
+  text-decoration: none;
+}
 .search-location {
   display: flex;
   justify-content: center;

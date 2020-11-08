@@ -9,13 +9,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux'
 import Header from './components/Header/Header';
 import './App.css'
+import PostScreen from './pages/PostScreen/PostScreen';
+import PostFormScreen from './pages/PostFormScreen/PostFormScreen';
 // import Test from './components/TEST/Test';
 class App extends Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        firebase.database().ref('/users').once('value').then((snapshot) => {
-          let userData = snapshot.val()
+        firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
+          let userData = snapshot.val();
           this.props.setUser(userData)
         })
       } else {
@@ -28,12 +30,12 @@ class App extends Component {
     return (
       <>
         <Router>
-          {/* <Header /> */}
           <Switch>
             {/* <PrivateRoute redirect="/login" exact path="/" component={Home} /> */}
             {/* <DefaultRoute path="/" component={Home} /> */}
             <Route path="/" exact component={Home} />
-            {/* <Route path="/test" component={Test} /> */}
+            <Route path="/post" exact component={PostScreen} />
+            <Route path="/post/:category" exact component={PostFormScreen} />
             <Route path="/item/:productId" component={Home} />
           </Switch>
         </Router>

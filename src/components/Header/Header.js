@@ -9,7 +9,8 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ""
+      search: "",
+      find: "",
     }
   }
   openModal = () => {
@@ -27,13 +28,13 @@ class Header extends Component {
               <span className="h-icon">
                 <i className="fa fa-search" style={{ fontSize: "24px" }} aria-hidden="true"></i>
               </span>
-              <input className="location-field" placeholder="YOUR LOCATION" value="Pakistan" type="text" />
+              <input className="location-field" placeholder="YOUR LOCATION" onChange={(e) => this.setState({ find: e.target.value })} value={this.state.find} type="text" />
               <span className="h-icon">
                 <i className="fa fa-chevron-down" style={{ fontSize: "25px" }} />
               </span>
             </div>
             <div className="search-container">
-              <input className="search-field" type="text" placeholder="Username" name="usrnm" />
+              <input className="search-field" type="text" placeholder="Username" onChange={(e) => this.setState({ search: e.target.value })} value={this.state.search} name="usrnm" />
               <span className="search-icon">
                 <i className="fa fa-search" style={{ color: "#fff", fontSize: "22px" }}></i>
               </span>
@@ -44,20 +45,20 @@ class Header extends Component {
             <button onClick={this.openModal} className="login-button">
               <span className="login-span">Login</span>
             </button>
-            
-              <Link to="/post">
-            <button className="sell-header">
-              <span className="sell-icon">
-              <i className="fa fa-plus"></i>
-              </span>
-              <span className="sell-span">SELL</span>
-              
-            </button>
-              </Link>
+
+            <Link to="/post" className="sell-link">
+              <button className="sell-header">
+                <span className="sell-icon">
+                  <i className="fa fa-plus"></i>
+                </span>
+                <span className="sell-span">SELL</span>
+
+              </button>
+            </Link>
           </div>
           <AuthModal ref={(e) => this.authModal = e} />
         </div>
-        
+
       </>
     )
   }

@@ -49,11 +49,14 @@ class AuthModal extends Component {
         firebase.auth().signInWithPopup(provider)
 
             .then(function (result) {
-                var token = result.credential.accessToken;
-                var user = result.user;
-
-                console.log(token)
-                console.log(user)
+                firebase.database().ref("/users").child(result.user.uid).set({
+                    email:result.user.email,
+                    name:result.user.displayName,
+                    userImg: result.user.photoURL
+                }).catch(function (error){
+                    console.log(error.code);
+                    console.log(error.message);
+                })
             }).catch(function (error) {
                 console.log(error.code);
                 console.log(error.message);
@@ -64,11 +67,14 @@ class AuthModal extends Component {
         firebase.auth().signInWithPopup(provider)
 
             .then(function (result) {
-                var token = result.credential.accessToken;
-                var user = result.user;
-
-                console.log(token)
-                console.log(user)
+                firebase.database().ref("/users").child(result.user.uid).set({
+                    email:result.user.email,
+                    name:result.user.displayName,
+                    userImg: result.user.photoURL
+                }).catch(function (error){
+                    console.log(error.code);
+                    console.log(error.message);
+                })
             }).catch(function (error) {
                 console.log(error.code);
                 console.log(error.message);
@@ -103,13 +109,13 @@ class AuthModal extends Component {
                         </div>
                         <button onClick={() => this.facebookLogin()} className="modal-button">
                             <span className="sl-btn-icon">
-                                <i className="fa fa-facebook sl-icon"></i>
+                                <i className="fab fa-facebook-f sl-icon"></i>
                             </span>
                             <span>Continue with Facebook</span>
                         </button>
                         <button onClick={() => this.googleLogin()} className="modal-button">
                             <span className="sl-btn-icon">
-                                <i className="fa fa-google sl-icon"></i>
+                                <i className="fab fa-google sl-icon"></i>
                             </span>
                             <span>Continue with Google</span>
                         </button>

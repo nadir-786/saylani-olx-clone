@@ -10,13 +10,13 @@ import firebase from '../../firebase'
 import './Home.css'
 import { ProductSlider } from '../../components/ProductSlider/ProductSlider'
 class Home extends Component {
-    signInUser() {
-        firebase.auth().signInWithEmailAndPassword("nadir@gmail.com", "123456").then(() => {
-            console.log("User has just signed in ")
-        }).catch((err) => {
-            console.log("User has just signed out ", err)
-        })
-    }
+    // signInUser() {
+    //     firebase.auth().signInWithEmailAndPassword("nadir@gmail.com", "123456").then(() => {
+    //         console.log("User has just signed in ")
+    //     }).catch((err) => {
+    //         console.log("User has just signed out ", err)
+    //     })
+    // }
     render() {
         return (
             <div className="home-page">
@@ -133,16 +133,16 @@ class Home extends Component {
                                 <h5 className="top-footer-heading">Follow Us</h5>
                                 <div className="footer-follow-cont">
                                     <span className="footer-icon">
-                                        <i className="fa fa-facebook" style={{ fontSize: "12px",color:"#888" }} />
+                                        <i className="fab fa-facebook-f" style={{ fontSize: "12px",color:"#888" }} />
                                     </span>
                                     <span className="footer-icon">
-                                        <i className="fa fa-twitter" style={{ fontSize: "12px",color:"#888" }} />
+                                        <i className="fab fa-twitter" style={{ fontSize: "12px",color:"#888" }} />
                                     </span>
+                                    {/* <span className="footer-icon">
+                                        <i className="fab fa-play" style={{ fontSize: "12px",color:"#888" }} />
+                                    </span> */}
                                     <span className="footer-icon">
-                                        <i className="fa fa-play" style={{ fontSize: "12px",color:"#888" }} />
-                                    </span>
-                                    <span className="footer-icon">
-                                        <i className="fa fa-instagram" style={{ fontSize: "12px",color:"#888" }} />
+                                        <i className="fab fa-instagram" style={{ fontSize: "12px",color:"#888" }} />
                                     </span>
                                 </div>
                                 <div className="footer-app-cont">
