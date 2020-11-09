@@ -359,4 +359,11 @@
     padding: 0 7px;
     font-size: 16px;
     height: 48px;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content:center;
+}
+.post-submit-loader{
+margin-right: 10px;
 }

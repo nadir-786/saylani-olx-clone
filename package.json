@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.3",
     "firebase": "^7.23.0",
+    "html-comment-regex": "^1.1.2",
     "node-sass": "4.14.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",

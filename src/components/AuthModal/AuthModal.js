@@ -50,10 +50,12 @@ class AuthModal extends Component {
 
             .then(function (result) {
                 firebase.database().ref("/users").child(result.user.uid).set({
-                    email:result.user.email,
-                    name:result.user.displayName,
-                    userImg: result.user.photoURL
-                }).catch(function (error){
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    userImg: result.user.photoURL,
+                    userId: result.user.uid,
+                    userNumber: "",
+                }).catch(function (error) {
                     console.log(error.code);
                     console.log(error.message);
                 })
@@ -69,12 +71,14 @@ class AuthModal extends Component {
 
             .then(function (result) {
                 firebase.database().ref("/users").child(result.user.uid).set({
-                    email:result.user.email,
-                    name:result.user.displayName,
-                    userImg: result.user.photoURL
-                }).then(function(){
-                changeModal()
-                }).catch(function (error){
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    userImg: result.user.photoURL,
+                    userId: result.user.uid,
+                    userNumber: "",
+                }).then(function () {   
+                    changeModal()
+                }).catch(function (error) {
                     console.log(error.code);
                     console.log(error.message);
                 })

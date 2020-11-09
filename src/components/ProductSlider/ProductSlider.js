@@ -9,37 +9,37 @@ import { Link } from "react-router-dom";
 
 function SampleNextArrow(props) {
   const { className, style, onClick, currentSlide, slideCount } = props;
-  if(currentSlide !== slideCount -3){
+  if (currentSlide !== slideCount - 3) {
     return (
       <div
         className={className}
         onClick={onClick}
-        style={{...style, background: "transparent",height:"70px",width:"30px",display:"flex",justifyContent:"center",alignItems:"center" }}
+        style={{ ...style, background: "transparent", height: "70px", width: "30px", display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <i className="fa fa-chevron-right" style={{color:"#000",fontSize:"25px"}}></i>
+        <i className="fa fa-chevron-right" style={{ color: "#000", fontSize: "25px" }}></i>
       </div>
     );
-  }else{
+  } else {
     return null
   }
 }
 
 function SamplePrevArrow(props) {
   const { className, style, onClick, currentSlide } = props;
-  if(currentSlide !== 0){
+  if (currentSlide !== 0) {
     return (
       <div
         className={className}
         onClick={onClick}
-        style={{...style, background: "transparent",height:"70px",width:"30px",display:"flex",justifyContent:"center",alignItems:"center" }}
+        style={{ ...style, background: "transparent", height: "70px", width: "30px", display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <i className="fa fa-chevron-left" style={{color:"#000",fontSize:"25px"}}></i>
+        <i className="fa fa-chevron-left" style={{ color: "#000", fontSize: "25px" }}></i>
       </div>
     );
-  }else{
+  } else {
     return null
   }
-  
+
 }
 
 export const ProductSlider = () => {
@@ -102,37 +102,37 @@ export const ProductSlider = () => {
       <div className="slider-h-container">
         <span>More on Other Business & Industry</span>
       </div>
-<div className="container-slider">
-      <Slider className="container fluid" {...settings}>
-        {images.map((image, i) => (
-         <div className="sCard-container">
-         <Link className="sCard-link" to='/'>
-             <figure className="figure-container">
-                 <img src={image.img} className="sCard-img" alt="" />
-             </figure>
-             <div className="sCard-content">
-                 <span className="sCard-price">Rs 2000</span>
-                 <span className="sCard-title">IPHONE 7</span>
-                 <div className="sCard-footer">
-                     <span className="sCard-location">Mirpur azad kashmir</span>
-                     <span className="sCard-time"><span>Today</span></span>
-                 </div>
-             </div>
+      <div className="container-slider">
+        <Slider className="container fluid" {...settings}>
+          {images.map((image, i) => (
+            <div key={i} className="sCard-container">
+              <Link className="sCard-link" to='/'>
+                <figure className="figure-container">
+                  <img src={image.img} className="sCard-img" alt="" />
+                </figure>
+                <div className="sCard-content">
+                  <span className="sCard-price">Rs 2000</span>
+                  <span className="sCard-title">IPHONE 7</span>
+                  <div className="sCard-footer">
+                    <span className="sCard-location">Mirpur azad kashmir</span>
+                    <span className="sCard-time"><span>Today</span></span>
+                  </div>
+                </div>
 
-             <span className="fav-ico">
-                 <button className="fav-btn">
-                     <i className={false ? "fa fa-heart" : "fa fa-heart-o"} ></i>
-                 </button>
-             </span>
-         </Link>
+                <span className="fav-ico">
+                  <button className="fav-btn">
+                    <i className={false ? "fa fa-heart" : "far fa-heart"} ></i>
+                  </button>
+                </span>
+              </Link>
 
-     </div>
+            </div>
           ))
-        }
-      </Slider>
+          }
+        </Slider>
+      </div>
     </div>
-    </div>
-    
+
 
   );
 };

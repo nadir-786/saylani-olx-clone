@@ -23,7 +23,7 @@ class Header extends Component {
   componentDidMount() {
     let currentUser = this.props.currentUser.userData;
     this.setState({ currentUser, isLogged: this.props.currentUser.isLogged })
-  
+
   }
   componentWillReceiveProps(nextProps) {
     let currentUser = nextProps.currentUser.userData;
@@ -58,17 +58,32 @@ class Header extends Component {
             {
               this.state.isLogged ? (
                 <>
-                  <div class="dropdown" style={{marginLeft:"20px",marginRight:"20px"}}>
+                  <div className="dropdown" style={{ marginLeft: "20px", marginRight: "20px" }}>
                     <details>
                       <summary>
                         <img src={this.state.currentUser?.userImg} style={{ height: "50px", width: '50px', borderRadius: "50%" }} alt="" />
                       </summary>
 
-                      <div class="dropdown-content">
+                      <div className="dropdown-content">
                         <ul>
-                          {/* <li><a href="#">Profile</a></li> */}
-                          {/* <li><a href="#">Settings</a></li> */}
-                          <li onClick={() => firebase.auth().signOut()}><a href="#">Logout</a></li>
+                          <div className="userInfoCont">
+                            <div className="userImgCont">
+                              <img src={this.state.currentUser?.userImg} style={{ height: "50px", width: '50px', borderRadius: "50%" }} alt="" />
+                            </div>
+                            <div className="userInfoDrop">
+                              <span className="userGreetH">Hello</span>
+                              <h3 className="userNameH">Ridan Ali</h3>
+                              {/* <span className="userProfileAsk">Hello</span> */}
+
+                            </div>
+
+                          </div>
+                          <div className="userMenuDrop">
+                            <li onClick={() => firebase.auth().signOut()}> <i className="far fa-file-alt" style={{ fontSize: '20px', marginRight: "10px" }}></i> <a href="#">My Ads</a></li>
+                          </div>
+                          <div className="userMenuDrop">
+                            <li onClick={() => firebase.auth().signOut()}> <i className="fas fa-sign-out-alt" style={{ fontSize: '20px', marginRight: "10px" }}></i> <a href="#">Logout</a></li>
+                          </div>
                         </ul>
                       </div>
                     </details>

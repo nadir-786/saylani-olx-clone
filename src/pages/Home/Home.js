@@ -10,13 +10,12 @@ import firebase from '../../firebase'
 import './Home.css'
 import { ProductSlider } from '../../components/ProductSlider/ProductSlider'
 class Home extends Component {
-    // signInUser() {
-    //     firebase.auth().signInWithEmailAndPassword("nadir@gmail.com", "123456").then(() => {
-    //         console.log("User has just signed in ")
-    //     }).catch((err) => {
-    //         console.log("User has just signed out ", err)
-    //     })
-    // }
+    componentDidMount() {
+        this.props.handleProducts()
+    }
+    componentWillReceiveProps(nextProps){
+      nextProps.handleProducts()
+    }
     render() {
         return (
             <div className="home-page">
@@ -34,17 +33,11 @@ class Home extends Component {
                         <div className="ads-container">
                             <h2 className="ads-fresh-heading">Fresh Recommendation</h2>
                             <div className="ads-cards-container ">
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-                                <ProductCard />
-
+                                {
+                                    this.props.productsData.products.map((myProduct,i) => (
+                                        <ProductCard data={myProduct} key={i} />
+                                    ))
+                                }
                             </div>
                             <div className="loadmore-cont">
                                 <div className="loadmore-container">
@@ -133,20 +126,20 @@ class Home extends Component {
                                 <h5 className="top-footer-heading">Follow Us</h5>
                                 <div className="footer-follow-cont">
                                     <span className="footer-icon">
-                                        <i className="fab fa-facebook-f" style={{ fontSize: "12px",color:"#888" }} />
+                                        <i className="fab fa-facebook-f" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>
                                     <span className="footer-icon">
-                                        <i className="fab fa-twitter" style={{ fontSize: "12px",color:"#888" }} />
+                                        <i className="fab fa-twitter" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>
                                     {/* <span className="footer-icon">
                                         <i className="fab fa-play" style={{ fontSize: "12px",color:"#888" }} />
                                     </span> */}
                                     <span className="footer-icon">
-                                        <i className="fab fa-instagram" style={{ fontSize: "12px",color:"#888" }} />
+                                        <i className="fab fa-instagram" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>
                                 </div>
                                 <div className="footer-app-cont">
-                                    <img src={applestore} alt="appstore" style={{marginRight:"10px"}} />
+                                    <img src={applestore} alt="appstore" style={{ marginRight: "10px" }} />
                                     <img src={playstore} alt="playstore" />
                                 </div>
                             </div>
@@ -165,7 +158,9 @@ class Home extends Component {
 }
 function mapStateToProps(state) {
     return {
-        currentUser: state.UserReducer
+        currentUser: state.UserReducer,
+        productsData: state.ProductReducer
+
     }
 }
 export default connect(mapStateToProps)(Home)

@@ -5,7 +5,6 @@ export default class SubHeader extends Component {
         dropdown: false
     }
     render() {
-console.log(this.state.dropdown)
         return (
             <div className="mega-menu">
 

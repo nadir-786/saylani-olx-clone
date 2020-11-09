@@ -4,23 +4,25 @@
 }
 
 /* Hiding The disclosure widget */
+
 .dropdown summary {
   list-style: none;
   cursor: pointer;
 }
 
 .dropdown summary::-webkit-details-marker {
-  display: none; 
+  display: none;
 }
 
 /* Detaching details content */
+
 .dropdown .dropdown-content {
   position: absolute;
   min-inline-size: max-content;
   background-color: white;
   border: 1px solid #9b7aba;
   right: 0;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06);
 }
 
 .dropdown ul {
@@ -28,23 +30,63 @@
   margin: 0;
   padding: 0.75em 0;
   background-color: white;
-  color: #8259a8;
 }
 
 .dropdown a {
   display: block;
-  color: #8259a8;
   text-decoration: none;
-  padding: 0.5em 1.5em;
-  text-align: right;
 }
 
-.dropdown a:hover, .dropdown a:focus {
-  background-color: #9b7aba;
-  color: white;
+.dropdown ul .userInfoCont {
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 16px;
 }
 
+.dropdown ul .userInfoDrop {
+  padding: 0 0 0 12px;
+}
+
+.dropdown ul .userImgCont {
+  margin: 5px;
+  margin-top: 0px;
+}
+
+.dropdown ul .userGreetH {
+  color: rgba(0, 47, 52, .64);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.dropdown ul .userNameH {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.dropdown .userMenuDrop{
+  border-top: 1px solid rgba(0, 47, 52, .2);
+}
+.dropdown .userMenuDrop li {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  text-decoration: none;
+  color: #002f34;
+  height: 48px;
+  font-size: 16px;
+}
+
+.dropdown .userMenuDrop li a{
+  color: #002f34;
+ }
+.dropdown .userMenuDrop li:hover {
+  background-color: #c8f8f6;
+}
 /* Closing the detail content on clicking anywhere else */
+
 .dropdown details[open] summary::before {
   position: fixed;
   top: 0;
@@ -265,14 +307,17 @@
   letter-spacing: .5px;
   color: #002f34;
 }
-.sell-link{
+
+.sell-link {
   color: #002f34;
   text-decoration: none;
 }
-.sell-link:hover{
+
+.sell-link:hover {
   color: #002f34;
   text-decoration: none;
 }
+
 .search-location {
   display: flex;
   justify-content: center;
@@ -309,19 +354,24 @@
   height: 252px;
   margin: 0 0 40px;
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 
 .banner-img {
- background-image: url("./../../assets/banner/banner.jpg");
- height: 252px;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: cover;
-    position: absolute;
-    top: 112px;
-    left: 0;
-    right: 0;
-    z-index: 1;
-
+  background-image: url("./../../assets/banner/banner.jpg");
+  height: 252px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  position: absolute;
+  top: 112px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+details{
+  outline: none !important;
+}
+summary{
+  outline: none !important;
 }
