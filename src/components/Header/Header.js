@@ -34,7 +34,9 @@ class Header extends Component {
       <>
         <div className="nav-container">
           <div className="logo-container">
+            <Link to="/">
             <img src={logo} className="logo" alt="m" />
+            </Link>
           </div>
           <div className="search-items">
             <div className="search-location">
@@ -72,17 +74,15 @@ class Header extends Component {
                             </div>
                             <div className="userInfoDrop">
                               <span className="userGreetH">Hello</span>
-                              <h3 className="userNameH">Ridan Ali</h3>
-                              {/* <span className="userProfileAsk">Hello</span> */}
-
+                              <h3 className="userNameH">{this.state.currentUser?.name}</h3>
                             </div>
 
                           </div>
                           <div className="userMenuDrop">
-                            <li onClick={() => firebase.auth().signOut()}> <i className="far fa-file-alt" style={{ fontSize: '20px', marginRight: "10px" }}></i> <a href="#">My Ads</a></li>
+                          <Link to="/myAds"> <li> <i className="far fa-file-alt" style={{ fontSize: '20px', marginRight: "10px" }}></i> My Ads</li></Link>
                           </div>
                           <div className="userMenuDrop">
-                            <li onClick={() => firebase.auth().signOut()}> <i className="fas fa-sign-out-alt" style={{ fontSize: '20px', marginRight: "10px" }}></i> <a href="#">Logout</a></li>
+                            <li onClick={() => firebase.auth().signOut()}> <i className="fas fa-sign-out-alt" style={{ fontSize: '20px', marginRight: "10px" }}></i>Logout</li>
                           </div>
                         </ul>
                       </div>

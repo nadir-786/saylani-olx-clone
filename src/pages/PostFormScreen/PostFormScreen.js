@@ -19,7 +19,7 @@ class PostFormScreen extends Component {
             creatorPhone: "",
             creatorImg: "",
             creatorUid: "",
-            loading: false,
+            loading: false  ,
         }
     }
     componentDidMount() {
@@ -42,6 +42,7 @@ class PostFormScreen extends Component {
     }
     onSubmit = async (e) => {
         e.preventDefault();
+        var myRef = this;
         this.setState({ loading: true })
         const { category, title, description, price, state, city, creatorName, creatorPhone, creatorImg, creatorUid } = this.state;
         const product = {
@@ -61,9 +62,11 @@ class PostFormScreen extends Component {
         firebase.storage().ref().constructor.prototype.putFiles = function (files) {
             var ref = this;
             return Promise.all(files.map(async function (file) {
-                var uploadTask = ref.child(file.name).put(file);
-                let downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
-                urls.push(downloadUrl)
+                var uploadTask = ref.child(file.name).put(file).then(async(snapshot)=>{
+                    var downloadUrl = await snapshot.ref.getDownloadURL();
+                    console.log(downloadUrl)
+                    urls.push(downloadUrl)
+                })
                 return uploadTask
             }));
         }
@@ -77,29 +80,35 @@ class PostFormScreen extends Component {
             newProduct["createdAt"] = new Date().toISOString();
             firebase.database().ref("/products/").push(newProduct).then((doc) => {
                 doc.update({ productId: doc.key })
-                this.setState({ loading: false })
-                alert("new product sent")
+                // this.setState({ loading: false })
+                myRef.setState({loading: false})
+               window.location.href = "/";
             }).catch((err) => {
                 console.log(err)
-                this.setState({ loading: false })
-
+                // this.setState({ loading: false })
+                myRef.setState({loading: false})
             })
         }).catch(function (error) {
             // If any task fails, handle this
-            this.setState({ loading: false })
+            // this.setState({ loading: false })
+            myRef.setState({loading: false})
         });
 
 
     }
     setFiles(e) {
+        console.log(e.target.files)
+        let myfiles = []
         for (let i = 0; i < e.target.files.length; i++) {
             const newFile = e.target.files[i];
             newFile["id"] = Math.random();
             // add an "id" property to each File object
             // setFiles(prevState => [...prevState, newFile]);
-            this.setState({ photos: [...this.state.photos, newFile] })
+            myfiles.push(newFile)
         }
+        this.setState({ photos: myfiles})
     }
+
     render() {
         return (
             <div className="home-page">
@@ -130,7 +139,7 @@ class PostFormScreen extends Component {
                                                     <div className="post-input-cont">
                                                         <label htmlFor="title" className="post-label-title">Ad title</label>
                                                         <div className="post-input-box">
-                                                            <input value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} type="text" className="post-input-title" />
+                                                            <input required value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} type="text" className="post-input-title" />
                                                         </div>
                                                         <div className="post-helper-cont">
                                                             <span className="post-helper-text">Mention the key features of your item (e.g. brand, model, age, type)</span>
@@ -140,7 +149,7 @@ class PostFormScreen extends Component {
                                                     <div className="post-input-cont">
                                                         <label htmlFor="title" className="post-label-title">Description</label>
                                                         <div className="post-input-box">
-                                                            <textarea type="text" value={this.state.description} onChange={(e) => this.setState({ description: e.target.value })} className="post-input-description" />
+                                                            <textarea required type="text" value={this.state.description} onChange={(e) => this.setState({ description: e.target.value })} className="post-input-description" />
                                                         </div>
                                                         <div className="post-helper-cont">
                                                             <span className="post-helper-text">Include condition, features and reason for selling</span>
@@ -156,7 +165,7 @@ class PostFormScreen extends Component {
                                                         <label htmlFor="title" className="post-label-price">Ad title</label>
                                                         <div className="post-price-box">
                                                             <div className="post-price-unit">Rs</div>
-                                                            <input type="text" value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} className="post-input-price" />
+                                                            <input required type="text" value={this.state.price} onChange={(e) => this.setState({ price: e.target.value })} className="post-input-price" />
                                                         </div>
 
                                                     </div>
@@ -190,7 +199,7 @@ class PostFormScreen extends Component {
                                                     <div className="post-input-cont">
                                                         <label htmlFor="title" className="post-label-title">State</label>
                                                         <div className="post-state-box">
-                                                            <select value={this.state.state} onChange={(e) => this.setState({ state: e.target.value })} selected="" className="post-input-state">
+                                                            <select required value={this.state.state} onChange={(e) => this.setState({ state: e.target.value })} selected="" className="post-input-state">
                                                                 <option value=""></option>
                                                                 <option value="azad-kashmir">Azad Kashmir</option>
                                                                 <option value="balochistan">Balochistan</option>
@@ -206,7 +215,7 @@ class PostFormScreen extends Component {
                                                     <div className="post-input-cont">
                                                         <label htmlFor="title" className="post-label-title">City</label>
                                                         <div className="post-input-box">
-                                                            <input type="text" onChange={(e) => this.setState({ city: e.target.value })} className="post-input-title" />
+                                                            <input required type="text" onChange={(e) => this.setState({ city: e.target.value })} className="post-input-title" />
                                                         </div>
                                                         <div className="post-helper-cont">
                                                             <span className="post-helper-text" style={{ marginTop: "30px", color: "red" }}>These field are mandatory</span>
@@ -226,7 +235,7 @@ class PostFormScreen extends Component {
                                                             <div className="post-input-cont">
                                                                 <label htmlFor="title" className="post-label-title">Name</label>
                                                                 <div className="post-input-box">
-                                                                    <input type="text" value={this.state.creatorName} onChange={(e) => this.setState({ creatorName: e.target.value })} className="post-input-title" disabled />
+                                                                    <input required type="text" value={this.state.creatorName} onChange={(e) => this.setState({ creatorName: e.target.value })} className="post-input-title" disabled />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -239,7 +248,7 @@ class PostFormScreen extends Component {
                                                             <label htmlFor="title" className="post-label-price">Mobile Phone Number *</label>
                                                             <div className="post-price-box">
                                                                 <div className="post-price-unit">+92</div>
-                                                                <input value={this.state.creatorPhone} onChange={(e) => this.setState({ creatorPhone: e.target.value })} type="text" className="post-input-price" />
+                                                                <input required value={this.state.creatorPhone} onChange={(e) => this.setState({ creatorPhone: e.target.value })} type="text" className="post-input-price" />
                                                             </div>
                                                         </div>
 
@@ -250,7 +259,7 @@ class PostFormScreen extends Component {
 
                                             <div className="post-submit-cont">
                                                 <button type="submit" className="post-submit-btn" disabled={this.props.loading}>
-                                                    {this.props.loading && <span class="spinner-border spinner-border-sm post-submit-loader" role="status" aria-hidden="true"></span>}
+                                                    {this.state.loading ? <span className="spinner-border spinner-border-sm post-submit-loader" role="status" aria-hidden="true"></span>:null}
                                                     <span>Post now</span></button>
                                             </div>
                                         </div>

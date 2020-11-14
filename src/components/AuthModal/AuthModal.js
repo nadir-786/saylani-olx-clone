@@ -126,9 +126,9 @@ class AuthModal extends Component {
                             </span>
                             <span>Continue with Google</span>
                         </button>
-                        <button className="modal-button">
+                        {/* <button className="modal-button">
                             <span>Continue with Email</span>
-                        </button>
+                        </button> */}
                         <h3 className="sl-info">We won't share your personal details with anyone</h3>
                         <h4 className="sl-terms">If you continue, you are accepting <span className="sl-link">OLX Terms and Conditions and Privacy Policy</span></h4>
                     </ModalBody>

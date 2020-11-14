@@ -6,6 +6,7 @@ import Img02 from "../../assets/products/image.png";
 import Img03 from "../../assets/products/image.png";
 import Img04 from "../../assets/products/image.png";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 function SampleNextArrow(props) {
   const { className, style, onClick, currentSlide, slideCount } = props;
@@ -23,7 +24,32 @@ function SampleNextArrow(props) {
     return null
   }
 }
-
+function getDisplayDate(givenDate) {
+  let myDate = givenDate.split("T")[0].split("-");
+  let year = myDate[0];
+  let month = myDate[1];
+  let day = myDate[2];
+  let today;
+  let compDate;
+  let diff;
+  today = new Date();
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  today.setMilliseconds(0);
+  compDate = new Date(year, month - 1, day); // month - 1 because January == 0
+  diff = today.getTime() - compDate.getTime(); // get the difference between today(at 00:00:00) and the date
+  if (compDate.getTime() == today.getTime()) {
+    return "Today";
+  } else if (diff <= (24 * 60 * 60 * 1000)) {
+    return "Yesterday";
+  } else {
+    let sendDate = compDate.toDateString().split(" ");
+    sendDate.shift();
+    let finalDate = sendDate.join(" ");
+    return finalDate;
+  }
+}
 function SamplePrevArrow(props) {
   const { className, style, onClick, currentSlide } = props;
   if (currentSlide !== 0) {
@@ -42,7 +68,7 @@ function SamplePrevArrow(props) {
 
 }
 
-export const ProductSlider = () => {
+const ProductSlider = (props) => {
   let settings = {
     infinite: false,
     slidesToShow: 3,
@@ -104,18 +130,23 @@ export const ProductSlider = () => {
       </div>
       <div className="container-slider">
         <Slider className="container fluid" {...settings}>
-          {images.map((image, i) => (
+          {props.productsData.products.map((product, i) => (
             <div key={i} className="sCard-container">
               <Link className="sCard-link" to='/'>
                 <figure className="figure-container">
-                  <img src={image.img} className="sCard-img" alt="" />
+                  <img src={product.photos[0]} className="sCard-img" alt="" />
                 </figure>
-                <div className="sCard-content">
-                  <span className="sCard-price">Rs 2000</span>
-                  <span className="sCard-title">IPHONE 7</span>
+                {product.featured && <div className="feature-box">
+                  <label htmlFor="feature-product" className="feature-label">
+                    <span className="feature-h">Featured</span>
+                  </label>
+                </div>}
+                <div className={`sCard-content ${product.featured ? "product-feature-oultine" : null}`} >
+                  <span className="sCard-price">Rs {product.price}</span>
+                  <span className="sCard-title">{product.title}</span>
                   <div className="sCard-footer">
-                    <span className="sCard-location">Mirpur azad kashmir</span>
-                    <span className="sCard-time"><span>Today</span></span>
+                    <span className="sCard-location">{product.city} {product.state}</span>
+                    <span className="sCard-time"><span>{getDisplayDate(product.createdAt)}</span></span>
                   </div>
                 </div>
 
@@ -136,3 +167,11 @@ export const ProductSlider = () => {
 
   );
 };
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.UserReducer,
+    productsData: state.ProductReducer
+  }
+}
+export default connect(mapStateToProps)(ProductSlider)

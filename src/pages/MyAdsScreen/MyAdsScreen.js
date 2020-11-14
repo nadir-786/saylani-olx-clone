@@ -1,52 +1,114 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from '../../components/Header/Header'
-import ProductCard from '../../components/ProductCard/ProductCard'
 import SubHeader from '../../components/SubHeader/SubHeader'
 import playstore from '../../assets/banner/playstore.png'
 import applestore from '../../assets/banner/appstore.jpg'
-
+import noads from '../../assets/noads.png'
 import firebase from '../../firebase'
-import './Home.css'
-import ProductSlider from '../../components/ProductSlider/ProductSlider'
-class Home extends Component {
-    componentDidMount() {
-        this.props.handleProducts()
+import './MyAdsScreen.css'
+import { ProductSlider } from '../../components/ProductSlider/ProductSlider'
+import { Link } from 'react-router-dom'
+class MyAdsScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userProducts: []
+        }
     }
-    // componentWillReceiveProps(nextProps){
-    //   nextProps.handleProducts()
-    // }
+    componentDidMount() {
+        if (this.props.currentUser.userData) {
+            this.getAds(this.props)
+
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.getAds(nextProps)
+    }
+
+    getAds = (user) => {
+        // console.log(firebase.auth().currentUser)
+        console.log("triger", user)
+        let userProducts = []
+        firebase.database().ref("/products").on("child_added", (snapshot) => {
+            if (snapshot.val().creatorUid === firebase.auth().currentUser.uid) {
+                userProducts.push(snapshot.val());
+                this.setState({ userProducts })
+            }
+        }, (err) => {
+            console.log(err)
+        })
+    }
+
+    deleteAd = (id) => {
+        firebase.database().ref(`/products/${id}`).remove().then(() => {
+           this.props.location.push("/")
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     render() {
         return (
             <div className="home-page">
                 <Header />
                 <SubHeader />
                 <main>
+                    <div className="myads-center-container">
+                        <h2 className="myads-h2">Your Ads</h2>
 
-                    <div className="banner-container">
-                        <div className="banner-img"></div>
-                    </div>
-                    <div className="center-container">
-                        <div className="ad-slider">
-                            <ProductSlider />
-                        </div>
-                        <div className="ads-container">
-                            <h2 className="ads-fresh-heading">Fresh Recommendation</h2>
-                            <div className="ads-cards-container ">
-                                {
-                                    this.props.productsData.products.map((myProduct,i) => (
-                                        <ProductCard data={myProduct} key={i} />
-                                    ))
-                                }
-                            </div>
-                            <div className="loadmore-cont">
+                        <div className="userads-container">
+                            {this.state.userProducts.length === 0 ? (
+                            <div className="myads-noads-cont">
+                                <img src={noads} alt="noadimg"/>
+                                <h2>You do not have posted any AD</h2>
+                                <div className="loadmore-cont">
                                 <div className="loadmore-container">
-                                    <button className="loadmore-btn">Load more</button>
+                                    <Link to="/post">
+                                    <button className="loadmore-btn">Post an Ad</button>
+                                    </Link>
                                 </div>
                             </div>
+                            </div>
+                            ) : this.state.userProducts.map((product, i) => (
+                                <div className="userads-card" key={product.productId + i}>
+                                    <div className="userads-img-cont">
+                                        <img src={product.photos[0]} className="userads-img" alt="" />
+                                    </div>
+                                    <div className="userads-basic-info">
+                                    <div className="userads-title-cont">
+                                        <span>Title</span>
+                                        <h3>{product.title}</h3>
+                                    </div>
+                                    <div className="userads-price-cont">
+                                    <span>Price</span>
+                                        
+                                        <h3>{product.price}</h3>
+                                    </div>
+                                    </div>
+                                    
+                                    <div className="userads-menu-cont">
+                                        <div className="adsdropdown" style={{ marginLeft: "20px", marginRight: "20px" }}>
+                                            <details>
+                                                <summary>
+                                                    <i className="fas fa-ellipsis-h" style={{ fontSize: '20px' }}></i>
+                                                </summary>
+
+                                                <div className="adsdropdown-content">
+                                                    <ul>
+
+                                                        <div className="userMenuDrop">
+                                                            <li onClick={() => this.deleteAd(product.productId)}> <i className="fas fa-trash-alt" style={{ fontSize: '20px', marginRight: "10px" }}></i> Delete</li>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
-
                 </main>
                 <div className="footer-img-container">
                     <div className="footer-img"></div>
@@ -131,9 +193,6 @@ class Home extends Component {
                                     <span className="footer-icon">
                                         <i className="fab fa-twitter" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>
-                                    {/* <span className="footer-icon">
-                                        <i className="fab fa-play" style={{ fontSize: "12px",color:"#888" }} />
-                                    </span> */}
                                     <span className="footer-icon">
                                         <i className="fab fa-instagram" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>
@@ -164,4 +223,4 @@ function mapStateToProps(state) {
 
     }
 }
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(MyAdsScreen)

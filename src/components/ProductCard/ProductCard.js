@@ -43,11 +43,12 @@ export default class ProductCard extends Component {
             photos,
             createdAt,
             featured,
+            productId
         } = this.props.data
 
         return (
             <div className="product-container ">
-                <Link className="product-link" to='/item/'>
+                <Link className="product-link" to={`/item/${productId}`}>
                     <figure className="figure-container">
                         <img src={photos[0]} className="product-img" alt="product-img" />
                     </figure>

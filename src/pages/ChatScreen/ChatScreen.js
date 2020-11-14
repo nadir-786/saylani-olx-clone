@@ -7,11 +7,11 @@ import playstore from '../../assets/banner/playstore.png'
 import applestore from '../../assets/banner/appstore.jpg'
 
 import firebase from '../../firebase'
-import './Home.css'
-import ProductSlider from '../../components/ProductSlider/ProductSlider'
-class Home extends Component {
+import './ChatScreen.css'
+import { ProductSlider } from '../../components/ProductSlider/ProductSlider'
+class ChatScreen extends Component {
     componentDidMount() {
-        this.props.handleProducts()
+        // this.props.handleProducts()
     }
     // componentWillReceiveProps(nextProps){
     //   nextProps.handleProducts()
@@ -22,31 +22,15 @@ class Home extends Component {
                 <Header />
                 <SubHeader />
                 <main>
-
-                    <div className="banner-container">
-                        <div className="banner-img"></div>
-                    </div>
                     <div className="center-container">
-                        <div className="ad-slider">
-                            <ProductSlider />
-                        </div>
-                        <div className="ads-container">
-                            <h2 className="ads-fresh-heading">Fresh Recommendation</h2>
-                            <div className="ads-cards-container ">
-                                {
-                                    this.props.productsData.products.map((myProduct,i) => (
-                                        <ProductCard data={myProduct} key={i} />
-                                    ))
-                                }
-                            </div>
-                            <div className="loadmore-cont">
-                                <div className="loadmore-container">
-                                    <button className="loadmore-btn">Load more</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                       <h2>Chat Screen</h2>
 
+                        
+
+
+
+
+                    </div>
                 </main>
                 <div className="footer-img-container">
                     <div className="footer-img"></div>
@@ -156,7 +140,6 @@ class Home extends Component {
         )
     }
 }
-
 function mapStateToProps(state) {
     return {
         currentUser: state.UserReducer,
@@ -164,4 +147,4 @@ function mapStateToProps(state) {
 
     }
 }
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(ChatScreen)

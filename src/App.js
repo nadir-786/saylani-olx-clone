@@ -11,7 +11,10 @@ import { connect } from 'react-redux'
 import Header from './components/Header/Header';
 import './App.css'
 import PostScreen from './pages/PostScreen/PostScreen';
+import ProductScreen from './pages/ProductScreen/ProductScreen';
 import PostFormScreen from './pages/PostFormScreen/PostFormScreen';
+import MyAdsScreen from './pages/MyAdsScreen/MyAdsScreen';
+import ChatScreen from './pages/ChatScreen/ChatScreen';
 // import Test from './components/TEST/Test';
 class App extends Component {
   componentDidMount() {
@@ -49,7 +52,9 @@ class App extends Component {
             <Route path="/" exact render={(props) => <Home {...props} handleProducts={() => this.setAllProducts()} />} />
             <Route path="/post" exact component={PostScreen} />
             <Route path="/post/:category" exact component={PostFormScreen} />
-            <Route path="/item/:productId" component={Home} />
+            <Route path="/item/:productId" component={ProductScreen} />
+            <Route path="/myAds" component={MyAdsScreen} />
+            <Route path="/chat" component={ChatScreen} />
           </Switch>
         </Router>
       </>
