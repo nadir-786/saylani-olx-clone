@@ -1,34 +1,101 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from '../../components/Header/Header'
-import ProductCard from '../../components/ProductCard/ProductCard'
 import SubHeader from '../../components/SubHeader/SubHeader'
 import playstore from '../../assets/banner/playstore.png'
 import applestore from '../../assets/banner/appstore.jpg'
 
 import firebase from '../../firebase'
 import './ChatScreen.css'
-import { ProductSlider } from '../../components/ProductSlider/ProductSlider'
 class ChatScreen extends Component {
-    componentDidMount() {
-        // this.props.handleProducts()
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentChatUser: {},
+            allUsers: [],
+        }
     }
-    // componentWillReceiveProps(nextProps){
-    //   nextProps.handleProducts()
-    // }
+    componentDidMount() {
+        window.scrollTo(0, 0);
+        this.getAllUsers()
+    }
+    getAllUsers() {
+        let allUsersData = [];
+        firebase.database().ref("/users").once("value", (snapshot) => {
+            let gotData = snapshot.val();
+            for (var key in gotData) {
+                if(gotData[key].userId !== firebase.auth().currentUser.uid){
+                    allUsersData.push(gotData[key]);
+                }
+            }
+        }).then(() => {
+            this.setState({ allUsers: allUsersData })
+        })
+    }
+
+    setUser(user){
+        this.setState({currentChatUser: user},()=>{
+            this.getMessages();
+        })
+    }
+
+    generateId(uid1, uid2) {
+        if (uid1 < uid2) {
+            return uid1 + uid2
+        } else {
+            return uid2 + uid1
+        }
+    }
+
+
+    getMessages(){
+        let userId = firebase.auth().currentUser.uid;
+        let otherId = this.state.currentChatUser.userId
+        let room = this.generateId(userId,otherId);
+        firebase.database().ref(`/chats/${room}`).on("child_added",(snapshot)=>{
+            console.log(snapshot.val())
+        })
+    }
+
+    sendMessages(){
+
+    }
+
     render() {
         return (
+
             <div className="home-page">
                 <Header />
                 <SubHeader />
                 <main>
                     <div className="center-container">
-                       <h2>Chat Screen</h2>
+                        <h2>Chat Screen</h2>
 
-                        
+                        <div className="chat-container" style={{ display: 'flex', minHeight: "80vh" }}>
+                            <div className="chat-left-cont" style={{ width: "300px" }}>
+                                <ul>
+                                    {this.state.allUsers.map((user) => (
+                                        <li>
+                                            <p>{user.name}</p>
+                                            <button onClick={() => this.setUser(user)}>Chat</button>
+                                        </li>
+                                    ))}
+
+                                </ul>
+                            </div>
+                            <div className="chat-right-cont">
+                                <ul>
+                                    <li>hi</li>
+                                </ul>
+                                <div className="send-cont">
+                                    <input type="text"/>
+                                    <button onClick={() => this.sendMessages()}>Send</button>
+                                </div>
+                            </div>
+                        </div>
 
 
-
+                                        
 
                     </div>
                 </main>
@@ -115,9 +182,6 @@ class ChatScreen extends Component {
                                     <span className="footer-icon">
                                         <i className="fab fa-twitter" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>
-                                    {/* <span className="footer-icon">
-                                        <i className="fab fa-play" style={{ fontSize: "12px",color:"#888" }} />
-                                    </span> */}
                                     <span className="footer-icon">
                                         <i className="fab fa-instagram" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>

@@ -17,6 +17,7 @@ class MyAdsScreen extends Component {
         }
     }
     componentDidMount() {
+        window.scrollTo(0, 0)
         if (this.props.currentUser.userData) {
             this.getAds(this.props)
 
@@ -78,12 +79,12 @@ class MyAdsScreen extends Component {
                                     <div className="userads-basic-info">
                                     <div className="userads-title-cont">
                                         <span>Title</span>
-                                        <h3>{product.title}</h3>
+                                        <h4>{product.title}</h4>
                                     </div>
                                     <div className="userads-price-cont">
                                     <span>Price</span>
                                         
-                                        <h3>{product.price}</h3>
+                                        <h4>{product.price}</h4>
                                     </div>
                                     </div>
                                     

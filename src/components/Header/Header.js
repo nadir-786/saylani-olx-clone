@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './Header.css'
 import AuthModal from '../AuthModal/AuthModal'
 import logo from '../../assets/logo.png'
-import { Dropdown } from 'semantic-ui-react'
-import { Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import firebase from '../../firebase'
 import { connect } from 'react-redux';
@@ -88,6 +86,7 @@ class Header extends Component {
                       </div>
                     </details>
                   </div>
+                  
                   <Link to="/post" className="sell-link">
                     <button className="sell-header">
                       <span className="sell-icon">
@@ -105,31 +104,16 @@ class Header extends Component {
                       <span className="login-span">Login</span>
                     </button>
 
-                    <Link to="/post" className="sell-link">
-                      <button className="sell-header">
+                      <button onClick={this.openModal} className="sell-header">
                         <span className="sell-icon">
                           <i className="fa fa-plus"></i>
                         </span>
                         <span className="sell-span">SELL</span>
 
                       </button>
-                    </Link>
                   </>
                 )
             }
-            {/* <button onClick={this.openModal} className="login-button">
-              <span className="login-span">Login</span>
-            </button>
-
-            <Link to="/post" className="sell-link">
-              <button className="sell-header">
-                <span className="sell-icon">
-                  <i className="fa fa-plus"></i>
-                </span>
-                <span className="sell-span">SELL</span>
-
-              </button>
-            </Link> */}
           </div>
           <AuthModal ref={(e) => this.authModal = e} />
         </div>

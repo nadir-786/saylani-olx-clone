@@ -24,6 +24,7 @@ class ProductScreen extends Component {
         }
     }
     componentDidMount() {
+        window.scrollTo(0, 0)
         let allProducts = [];
         let selectedPath = window.location.pathname.split("/")[2];
         firebase.database().ref(`/products/${selectedPath}`).once("value", (snapshot) => {

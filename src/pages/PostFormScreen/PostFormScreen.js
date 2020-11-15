@@ -72,7 +72,7 @@ class PostFormScreen extends Component {
         }
 
         // use it!
-        firebase.storage().ref().putFiles(files).then(function (metadatas) {
+        firebase.storage().ref(`/products/${this.state.creatorUid}`).putFiles(files).then(function (metadatas) {
             let newProduct = product;
             let random_boolean = Math.random() <= 0.4;
             newProduct["photos"] = urls;
@@ -103,7 +103,6 @@ class PostFormScreen extends Component {
             const newFile = e.target.files[i];
             newFile["id"] = Math.random();
             // add an "id" property to each File object
-            // setFiles(prevState => [...prevState, newFile]);
             myfiles.push(newFile)
         }
         this.setState({ photos: myfiles})

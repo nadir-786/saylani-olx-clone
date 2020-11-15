@@ -11,7 +11,8 @@ import './Home.css'
 import ProductSlider from '../../components/ProductSlider/ProductSlider'
 class Home extends Component {
     componentDidMount() {
-        this.props.handleProducts()
+        window.scrollTo(0, 0)
+        this.props.handleProducts(8)
     }
     // componentWillReceiveProps(nextProps){
     //   nextProps.handleProducts()
@@ -34,14 +35,14 @@ class Home extends Component {
                             <h2 className="ads-fresh-heading">Fresh Recommendation</h2>
                             <div className="ads-cards-container ">
                                 {
-                                    this.props.productsData.products.map((myProduct,i) => (
+                                    this.props.productsData.products.map((myProduct, i) => (
                                         <ProductCard data={myProduct} key={i} />
                                     ))
                                 }
                             </div>
                             <div className="loadmore-cont">
                                 <div className="loadmore-container">
-                                    <button className="loadmore-btn">Load more</button>
+                                    <button onClick={() => this.props.handleProducts(24)} className="loadmore-btn">Load more</button>
                                 </div>
                             </div>
                         </div>
@@ -131,9 +132,6 @@ class Home extends Component {
                                     <span className="footer-icon">
                                         <i className="fab fa-twitter" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>
-                                    {/* <span className="footer-icon">
-                                        <i className="fab fa-play" style={{ fontSize: "12px",color:"#888" }} />
-                                    </span> */}
                                     <span className="footer-icon">
                                         <i className="fab fa-instagram" style={{ fontSize: "12px", color: "#888" }} />
                                     </span>

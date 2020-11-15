@@ -18,7 +18,7 @@ import ChatScreen from './pages/ChatScreen/ChatScreen';
 // import Test from './components/TEST/Test';
 class App extends Component {
   componentDidMount() {
-    this.setAllProducts();
+    this.setAllProducts(8);
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase.database().ref(`/users/${user.uid}`).once('value').then((snapshot) => {
@@ -30,9 +30,9 @@ class App extends Component {
       }
     })
   }
-  setAllProducts=()=> {
+  setAllProducts=(limit)=> {
     let products = []
-    firebase.database().ref("/products/").once("value", (snapshot) => {
+    firebase.database().ref("/products/").limitToLast(limit).once("value", (snapshot) => {
       let gotData = snapshot.val();
       for (var key in gotData) {
         products.push(gotData[key]);
@@ -49,7 +49,7 @@ class App extends Component {
           <Switch>
             {/* <PrivateRoute redirect="/login" exact path="/" component={Home} /> */}
             {/* <DefaultRoute path="/" component={Home} /> */}
-            <Route path="/" exact render={(props) => <Home {...props} handleProducts={() => this.setAllProducts()} />} />
+            <Route path="/" exact render={(props) => <Home {...props} handleProducts={(e) => this.setAllProducts(e)} />} />
             <Route path="/post" exact component={PostScreen} />
             <Route path="/post/:category" exact component={PostFormScreen} />
             <Route path="/item/:productId" component={ProductScreen} />

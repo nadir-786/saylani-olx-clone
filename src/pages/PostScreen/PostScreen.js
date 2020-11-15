@@ -8,6 +8,9 @@ import './PostScreen.css'
 import { ProductSlider } from '../../components/ProductSlider/ProductSlider'
 import { Link } from 'react-router-dom'
 class PostScreen extends Component {
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
     signInUser() {
         firebase.auth().signInWithEmailAndPassword("nadir@gmail.com", "123456").then(() => {
             console.log("User has just signed in ")

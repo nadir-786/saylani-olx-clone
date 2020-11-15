@@ -105,24 +105,6 @@ const ProductSlider = (props) => {
     ]
   };
 
-  let images = [
-    { img: Img01, name: "Zia-ullah Khan", designation: "team leader" },
-    { img: Img02, name: "Adil Altaf", designation: "Founder AXIOM" },
-    { img: Img03, name: "Amir Pinger", designation: "CNC lead teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-    { img: Img04, name: "Daniyal Nagori", designation: "CNC teacher" },
-
-  ];
   return (
     <div className="slider-cont">
       <div className="slider-h-container">
@@ -131,39 +113,37 @@ const ProductSlider = (props) => {
       <div className="container-slider">
         <Slider className="container fluid" {...settings}>
           {props.productsData.products.map((product, i) => (
-            <div key={i} className="sCard-container">
-              <Link className="sCard-link" to='/'>
-                <figure className="figure-container">
-                  <img src={product.photos[0]} className="sCard-img" alt="" />
-                </figure>
-                {product.featured && <div className="feature-box">
-                  <label htmlFor="feature-product" className="feature-label">
-                    <span className="feature-h">Featured</span>
-                  </label>
-                </div>}
-                <div className={`sCard-content ${product.featured ? "product-feature-oultine" : null}`} >
-                  <span className="sCard-price">Rs {product.price}</span>
-                  <span className="sCard-title">{product.title}</span>
-                  <div className="sCard-footer">
-                    <span className="sCard-location">{product.city} {product.state}</span>
-                    <span className="sCard-time"><span>{getDisplayDate(product.createdAt)}</span></span>
+              <div key={i} className="sCard-container">
+                <Link className="sCard-link" to={`/item/${product.productId}`}>
+                  <figure className="figure-container">
+                    <img src={product.photos[0]} className="sCard-img" alt="" />
+                  </figure>
+                  {product.featured && <div className="feature-box">
+                    <label htmlFor="feature-product" className="feature-label">
+                      <span className="feature-h">Featured</span>
+                    </label>
+                  </div>}
+                  <div className={`sCard-content ${product.featured ? "product-feature-oultine" : null}`} >
+                    <span className="sCard-price">Rs {product.price}</span>
+                    <span className="sCard-title">{product.title}</span>
+                    <div className="sCard-footer">
+                      <span className="sCard-location">{product.city} {product.state}</span>
+                      <span className="sCard-time"><span>{getDisplayDate(product.createdAt)}</span></span>
+                    </div>
                   </div>
-                </div>
 
-                <span className="fav-ico">
-                  <button className="fav-btn">
-                    <i className={false ? "fa fa-heart" : "far fa-heart"} ></i>
-                  </button>
-                </span>
-              </Link>
-
-            </div>
+                  <span className="fav-ico">
+                    <button className="fav-btn">
+                      <i className={false ? "fa fa-heart" : "far fa-heart"} ></i>
+                    </button>
+                  </span>
+                </Link>
+              </div>
           ))
           }
         </Slider>
       </div>
     </div>
-
 
   );
 };
